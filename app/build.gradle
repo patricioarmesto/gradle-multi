@@ -1,0 +1,33 @@
+plugins {
+    id 'java-conventions'
+    id 'application'
+}
+
+mainClassName = 'com.example.Hello'
+
+application {
+    mainModule = 'com.example'
+    mainClass = mainClassName
+}
+
+
+dependencies {
+    implementation project(':list')
+    implementation project(':update')
+}
+
+
+tasks.register('uberJar', Jar) {
+    archiveClassifier = 'uber'
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+}

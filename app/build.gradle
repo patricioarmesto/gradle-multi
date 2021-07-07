@@ -21,9 +21,13 @@ tasks.register('uberJar', Jar) {
     archiveClassifier = 'uber'
 
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes 'Implementation-Title': 'Foobar',
+                'Implementation-Version': version,
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Main-Class': mainClassName
     }
-
     from sourceSets.main.output
 
     dependsOn configurations.runtimeClasspath

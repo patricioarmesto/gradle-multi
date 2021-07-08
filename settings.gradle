@@ -12,3 +12,5 @@ rootProject.name = 'gradle-multi'
 include 'app'
 include 'list'
 include 'update'
+
+include 'package-build'
